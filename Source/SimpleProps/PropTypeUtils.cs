@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SimpleProps
+{
+    public static class PropTypeUtils
+    {
+        public static PropType GetPropType(Object obj)
+        {
+            if (obj is Int16)
+                return PropType.Int16;
+            if (obj is Int32)
+                return PropType.Int32;
+            if (obj is Int64)
+                return PropType.Int64;
+            if (obj is String)
+                return PropType.String;
+            if (obj is Int16[])
+                return PropType.Int16Array;
+            if (obj is Int32[])
+                return PropType.Int32Array;
+            if (obj is Int64[])
+                return PropType.Int64Array;
+            if (obj is Byte[])
+                return PropType.Buffer;
+
+            throw new ArgumentException();
+        }
+    }
+}

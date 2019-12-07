@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>546cbe92-b4e9-40a4-9868-ab5e96389465</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SimpleProps</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)PropItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropItemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropSection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropSectionCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropTypeUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropWriter.cs" />
+  </ItemGroup>
+</Project>
