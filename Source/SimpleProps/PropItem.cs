@@ -50,7 +50,7 @@ namespace SimpleProps
 
         private void _setValue(Object value)
         {
-            if (PropTypeUtils.GetPropType(value) != this.Type)
+            if (!PropTypeUtils.CheckType(value, this.Type))
                 throw new ArgumentException();
             this._value = value;
         }

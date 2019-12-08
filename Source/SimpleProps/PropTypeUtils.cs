@@ -6,7 +6,7 @@ namespace SimpleProps
 {
     public static class PropTypeUtils
     {
-        public static PropType GetPropType(Object obj)
+        public static PropType GetType(Object obj)
         {
             if (obj is Int16)
                 return PropType.Int16;
@@ -26,6 +26,22 @@ namespace SimpleProps
                 return PropType.Buffer;
 
             throw new ArgumentException();
+        }
+
+        public static bool CheckType(Object obj, PropType type)
+        {
+            if (obj is String && type == PropType.InversedString)
+                return true;
+
+            try
+            {
+                var actualType = GetType(obj);
+                return type == actualType;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

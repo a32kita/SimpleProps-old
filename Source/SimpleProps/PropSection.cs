@@ -32,8 +32,9 @@ namespace SimpleProps
         /// <summary>
         /// <see cref="PropSection"/> クラスの新しいインスタンスを初期化します。
         /// </summary>
-        public PropSection()
-            : this(new PropItem[0])
+        /// <param name="name"></param>
+        public PropSection(string name)
+            : this(name, new PropItem[0])
         {
             // 実装なし
         }
@@ -41,9 +42,11 @@ namespace SimpleProps
         /// <summary>
         /// <see cref="PropItem"/> のコレクションを指定して、 <see cref="PropSection"/> クラスの新しいインスタンスを初期化します。
         /// </summary>
+        /// <param name="name"></param>
         /// <param name="items"></param>
-        public PropSection(IEnumerable<PropItem> items)
+        public PropSection(string name, IEnumerable<PropItem> items)
         {
+            this.Name = name;
             this.Items = new PropItemCollection();
             this.Items.AddRange(items);
         }

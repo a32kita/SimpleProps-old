@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SimpleProps
 {
-    public enum PropType
+    public enum PropType : ushort
     {
         Int16 = 1,
 
@@ -13,6 +13,8 @@ namespace SimpleProps
         Int64 = 3,
 
         String = 11,
+
+        InversedString = 12,
 
         Int16Array = 31,
 
