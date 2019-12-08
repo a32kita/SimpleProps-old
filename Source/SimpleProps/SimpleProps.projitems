@@ -9,12 +9,13 @@
     <Import_RootNamespace>SimpleProps</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\FileTypeConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\ReaderWriterConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\NullStream.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\PropBinaryBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\PropItemBufferMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropItemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Props.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropSection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropSectionCollection.cs" />

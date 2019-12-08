@@ -25,7 +25,7 @@ namespace SimpleProps
 
         static PropWriter()
         {
-            DefaultEncoding = Encoding.UTF8;
+            DefaultEncoding = ReaderWriterConstants.DefaultEncoding;
         }
 
         public PropWriter(Stream stream)
