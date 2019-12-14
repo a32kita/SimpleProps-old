@@ -30,6 +30,9 @@ namespace SimpleProps
 
         public static bool CheckType(Object obj, PropType type)
         {
+            if (obj == null)
+                return true;
+
             if (obj is String && type == PropType.InversedString)
                 return true;
 

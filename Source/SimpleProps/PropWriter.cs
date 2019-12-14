@@ -14,6 +14,7 @@ namespace SimpleProps
         private Encoding _encoding;
         private bool _leaveOpen;
         private bool _isDisposed;
+        private PropBinaryBuilder _binBuilder;
 
 
         // 公開静的フィールド
@@ -40,6 +41,7 @@ namespace SimpleProps
             this._encoding = encoding;
             this._leaveOpen = leaveOpen;
             this._isDisposed = false;
+            this._binBuilder = new PropBinaryBuilder(this._encoding);
         }
 
 
@@ -81,11 +83,10 @@ namespace SimpleProps
             if (this._isDisposed)
                 throw new ObjectDisposedException(nameof(PropWriter));
 
-            var binBuilder = new PropBinaryBuilder(this._encoding);
             using (var bw = new BinaryWriter(this._stream, this._encoding, true))
             {
                 // アイテム バッファの空書き込みを実行し、アイテム バッファのマップを作成する
-                var itemBufferMap = this._createItemBufferMap(binBuilder, props.Sections);
+                var itemBufferMap = this._createItemBufferMap(_binBuilder, props.Sections);
 
                 // アイテム バッファ テーブルを作成する
                 var itemBufferTableBuffer = new byte[props.Sections.Count][];
@@ -93,13 +94,13 @@ namespace SimpleProps
                 var currentPosition = 0uL;
                 for (var i = 0; i < props.Sections.Count; i++)
                 {
-                    itemBufferTableBuffer[i] = binBuilder.CreateItemBufferTable(props.Sections[i].Items, itemBufferMap[i]);
+                    itemBufferTableBuffer[i] = _binBuilder.CreateItemBufferTable(props.Sections[i].Items, itemBufferMap[i]);
                     itemBufferTableMap[i] = currentPosition;
                     currentPosition += itemBufferTableMap[i];
                 }
 
                 // セクション テーブルを作成し、書き込む
-                bw.Write(binBuilder.CreateSectionTable(props.Sections, itemBufferTableMap));
+                bw.Write(_binBuilder.CreateSectionTable(props.Sections, itemBufferTableMap));
 
                 // アイテム バッファ テーブルを書き込む
                 for (var i = 0; i < itemBufferTableBuffer.Length; i++)
@@ -118,7 +119,7 @@ namespace SimpleProps
                         var bufferMode = PropItemBufferMode.Buffered;
                         if (item.IsNull)
                             bufferMode = PropItemBufferMode.Null;
-                        binBuilder.WriteItemBuffer(this._stream, section.Items[j], bufferMode);
+                        _binBuilder.WriteItemBuffer(this._stream, section.Items[j], bufferMode);
                     }
                 }
             }

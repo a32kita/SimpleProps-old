@@ -9,6 +9,7 @@
     <Import_RootNamespace>SimpleProps</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\PropBinaryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\ReaderWriterConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\NullStream.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\PropBinaryBuilder.cs" />

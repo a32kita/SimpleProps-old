@@ -14,6 +14,7 @@ namespace SimpleProps
         private Encoding _encoding;
         private bool _leaveOpen;
         private bool _isDisposed;
+        private PropBinaryLoader _binLoader;
 
 
         // 公開静的フィールド
@@ -40,15 +41,11 @@ namespace SimpleProps
             this._encoding = encoding;
             this._leaveOpen = leaveOpen;
             this._isDisposed = false;
+            this._binLoader = new PropBinaryLoader(this._encoding);
         }
 
 
         // 非公開メソッド
-
-        private Dictionary<string, ulong> _loadSectionTable(BinaryReader binaryReader)
-        {
-            throw new NotImplementedException();
-        }
 
 
         // 公開メソッド
@@ -64,7 +61,8 @@ namespace SimpleProps
 
             using (var br = new BinaryReader(this._stream, this._encoding, false))
             {
-
+                // セクション テーブルを読み取る
+                var sectionTable = this._binLoader.LoadSectionTable(br);
             }
 
             throw new NotImplementedException();

@@ -26,18 +26,33 @@ namespace SimpleProps.Internal
 
         // 非公開メソッド
 
+        /// <summary>
+        /// バイト長付きバイト配列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="value"></param>
         private void _writeByteArray(BinaryWriter bw, byte[] value)
         {
             bw.Write((ulong)value.Length);
             bw.Write(value);
         }
 
+        /// <summary>
+        /// バイト長付き文字列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="value"></param>
         private void _writeString(BinaryWriter bw, string value)
         {
             var valueBuf = this._encoding.GetBytes(value);
             this._writeByteArray(bw, valueBuf);
         }
 
+        /// <summary>
+        /// バイト長付きバッファ反転文字列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="value"></param>
         private void _writeInversedString(BinaryWriter bw, string value)
         {
             var valueBuf = this._encoding.GetBytes(value);
@@ -140,6 +155,8 @@ namespace SimpleProps.Internal
                         case PropType.Int16:
                             bw.Write((Int16)item.Value);
                             break;
+                        default:
+                            throw new NotImplementedException();
                     }
                 }
             }

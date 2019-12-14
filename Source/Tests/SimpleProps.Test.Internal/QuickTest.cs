@@ -10,9 +10,9 @@ namespace SimpleProps.Test.Internal
     /// Test001 の概要の説明
     /// </summary>
     [TestClass]
-    public class Test001
+    public class QuickTest
     {
-        public Test001()
+        public QuickTest()
         {
             //
             // TODO: コンストラクター ロジックをここに追加します
@@ -59,8 +59,11 @@ namespace SimpleProps.Test.Internal
         //
         #endregion
 
+        /// <summary>
+        /// Test001-TestMethod1.txt にデータを書き出します。
+        /// </summary>
         [TestMethod]
-        public void TestMethod1()
+        public void Test001()
         {
             //
             // TODO: テスト ロジックをここに追加してください
@@ -93,6 +96,14 @@ namespace SimpleProps.Test.Internal
                     })
                 }));
             }
+        }
+
+        /// <summary>
+        /// <see cref="Test001"/> で書き出したファイルからデータを読み取ります。
+        /// </summary>
+        public void Test002()
+        {
+
         }
     }
 }
