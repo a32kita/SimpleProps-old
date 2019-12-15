@@ -70,16 +70,16 @@ namespace SimpleProps.Test.Internal
             //
 
             using (var fs = File.OpenWrite(".\\Test001-TestMethod1.txt"))
-            using (var pr = new PropWriter(fs))
+            using (var pw = new PropWriter(fs))
             {
-                pr.Write(new Props(new PropSectionCollection()
+                pw.Write(new Props(new PropSectionCollection()
                 {
                     new PropSection("PropSection01", new PropItemCollection()
                     {
                         new PropItem("PropItem01-001", PropType.String, "hello"),
                         new PropItem("PropItem01-002", PropType.String, "world!!"),
                         new PropItem("PropItem01-003", PropType.String, "こんにちは"),
-                        new PropItem("PropItem01-003", PropType.DateTime, DateTime.Parse("1970/01/01 00:00:00.000")),
+                        new PropItem("PropItem01-004", PropType.DateTime, DateTime.Parse("1970/01/01 00:00:00.000")),
                     }),
 
                     new PropSection("PropSection02", new PropItemCollection()
@@ -102,9 +102,22 @@ namespace SimpleProps.Test.Internal
         /// <summary>
         /// <see cref="Test001"/> で書き出したファイルからデータを読み取ります。
         /// </summary>
+        [TestMethod]
         public void Test002()
         {
-
+            using (var fs = File.OpenRead(".\\Test001-TestMethod1.txt"))
+            using (var pr = new PropReader(fs))
+            {
+                var props = pr.ReadAllProps();
+                foreach (var sect in props.Sections)
+                {
+                    this.TestContext.WriteLine("[{0}]", sect.Name);
+                    foreach (var propItem in sect.Items)
+                    {
+                        this.TestContext.WriteLine("{0}={1}:{2}", propItem.Name, propItem.Type, propItem.Value);
+                    }
+                }
+            }
         }
     }
 }

@@ -88,6 +88,22 @@ namespace SimpleProps
                 // アイテム バッファの空書き込みを実行し、アイテム バッファのマップを作成する
                 var itemBufferMap = this._createItemBufferMap(_binBuilder, props.Sections);
 
+#if DEBUG
+                Console.WriteLine("== ITEM BUFFER MAPPING ==");
+                for (var i = 0; i < props.Sections.Count; i++)
+                {
+                    var sect = props.Sections[i];
+                    Console.WriteLine("[{0}]", sect.Name);
+                    for (var j = 0; j < sect.Items.Count; j++)
+                    {
+                        var item = sect.Items[j];
+                        var itemName = item.Name;
+                        var bufferPos = itemBufferMap[i][j];
+                        Console.WriteLine("{0}={1}", itemName, bufferPos);
+                    }
+                }
+#endif
+
                 // アイテム バッファ テーブルを作成する
                 var itemBufferTableBuffer = new byte[props.Sections.Count][];
                 var itemBufferTableMap = new ulong[props.Sections.Count];
@@ -96,7 +112,7 @@ namespace SimpleProps
                 {
                     itemBufferTableBuffer[i] = _binBuilder.CreateItemBufferTable(props.Sections[i].Items, itemBufferMap[i]);
                     itemBufferTableMap[i] = currentPosition;
-                    currentPosition += itemBufferTableMap[i];
+                    currentPosition += (ulong)itemBufferTableBuffer[i].Length; //itemBufferTableMap[i];
                 }
 
                 // セクション テーブルを作成し、書き込む

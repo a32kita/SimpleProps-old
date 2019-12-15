@@ -122,11 +122,20 @@ namespace SimpleProps.Internal
             var itemCount = br.ReadUInt32();
 
             // アイテム バッファ情報の読み取り
+
+#if DEBUG
+            Console.WriteLine("== LOAD ITEM BUFER TABLE ==");
+#endif
+
             var itemBufferTable = new Dictionary<PropItem, ulong>();
             for (var i = 0u; i < itemCount; i++)
             {
                 var name = this._readString(br);
                 var itemBufferStartOffset = br.ReadUInt64();
+
+#if DEBUG
+                Console.WriteLine("{0}={1}", name, itemBufferStartOffset);
+#endif
 
                 var item = new PropItem(name, PropType.Buffer, null);
                 itemBufferTable.Add(item, itemBufferStartOffset);

@@ -323,7 +323,111 @@ namespace SimpleProps.Test.Internal
             // アイテムの定義
             var propItemName = "DEBUG_ITEM";
             var propItemType = PropType.String;
-            string propItemValue = "DEBUG_ITEM_VALUE";
+            var propItemValue = "DEBUG_ITEM_VALUE";
+            var propItem = new PropItem(propItemName, propItemType, propItemValue);
+
+            // アイテム バッファの生成
+            var ms = new MemoryStream();
+            binBuilder.WriteItemBuffer(ms, propItem, PropItemBufferMode.Buffered);
+            ms.Seek(0, SeekOrigin.Begin);
+
+            // 処理実行
+            try
+            {
+                using (var br = new BinaryReader(ms))
+                {
+                    // アイテム バッファ テーブルから読み取ったと想定するアイテム
+                    var loadedItemFromBufferTable = new PropItem(propItemName, PropType.Buffer, null);
+
+                    // フル ロード
+                    var loadedItem = binLoader.LoadItemBuffer(br, loadedItemFromBufferTable, false);
+
+                    // アイテム名が正しいことの確認
+                    this.TestContext.WriteLine("Name> expected: {0}, actual: {1}", propItemName, loadedItem.Name);
+                    Assert.AreEqual(propItemName, loadedItem.Name);
+
+                    // タイプが正しいことの確認
+                    this.TestContext.WriteLine("Type> expected: {0}, actual: {1}", propItemType, loadedItem.Type);
+                    Assert.AreEqual(propItemType, loadedItem.Type);
+
+                    // 値の内容の確認
+                    this.TestContext.WriteLine("Value> expected: {0}, actual: {1}", propItemValue, loadedItem.Value);
+                    Assert.AreEqual(propItemValue, loadedItem.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"予期せぬエラー: {ex}");
+            }
+        }
+
+        /// <summary>
+        /// Test203 [正常処理] : 1 件のアイテム バッファ (InversedString) を読み取る。
+        /// </summary>
+        [TestMethod]
+        public void Test203()
+        {
+            // UTF-8 でビルダ・ローダを初期化
+            var encoding = Encoding.UTF8;
+            var binBuilder = new PropBinaryBuilder(encoding);
+            var binLoader = new PropBinaryLoader(encoding);
+
+            // アイテムの定義
+            var propItemName = "DEBUG_ITEM";
+            var propItemType = PropType.InversedString;
+            var propItemValue = "DEBUG_ITEM_VALUE";
+            var propItem = new PropItem(propItemName, propItemType, propItemValue);
+
+            // アイテム バッファの生成
+            var ms = new MemoryStream();
+            binBuilder.WriteItemBuffer(ms, propItem, PropItemBufferMode.Buffered);
+            ms.Seek(0, SeekOrigin.Begin);
+
+            // 処理実行
+            try
+            {
+                using (var br = new BinaryReader(ms))
+                {
+                    // アイテム バッファ テーブルから読み取ったと想定するアイテム
+                    var loadedItemFromBufferTable = new PropItem(propItemName, PropType.Buffer, null);
+
+                    // フル ロード
+                    var loadedItem = binLoader.LoadItemBuffer(br, loadedItemFromBufferTable, false);
+
+                    // アイテム名が正しいことの確認
+                    this.TestContext.WriteLine("Name> expected: {0}, actual: {1}", propItemName, loadedItem.Name);
+                    Assert.AreEqual(propItemName, loadedItem.Name);
+
+                    // タイプが正しいことの確認
+                    this.TestContext.WriteLine("Type> expected: {0}, actual: {1}", propItemType, loadedItem.Type);
+                    Assert.AreEqual(propItemType, loadedItem.Type);
+
+                    // 値の内容の確認
+                    this.TestContext.WriteLine("Value> expected: {0}, actual: {1}", propItemValue, loadedItem.Value);
+                    Assert.AreEqual(propItemValue, loadedItem.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"予期せぬエラー: {ex}");
+            }
+        }
+
+        /// <summary>
+        /// Test204 [正常処理] : 1 件のアイテム バッファ (DateTime) を読み取る。
+        /// </summary>
+        [TestMethod]
+        public void Test204()
+        {
+            // UTF-8 でビルダ・ローダを初期化
+            var encoding = Encoding.UTF8;
+            var binBuilder = new PropBinaryBuilder(encoding);
+            var binLoader = new PropBinaryLoader(encoding);
+
+            // アイテムの定義
+            var propItemName = "DEBUG_ITEM";
+            var propItemType = PropType.DateTime;
+            var propItemValue = new DateTime(1970, 1, 1, 12, 0, 0, 500);
             var propItem = new PropItem(propItemName, propItemType, propItemValue);
 
             // アイテム バッファの生成

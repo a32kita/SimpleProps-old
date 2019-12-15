@@ -95,10 +95,19 @@ namespace SimpleProps.Internal
             {
                 bw.Write((uint)sections.Count); // セクション数
 
+#if DEBUG
+                Console.WriteLine("== CREATE SECTION TABLE ==");
+                Console.WriteLine("SectionsCount: {0}", sections.Count);
+#endif
+
                 foreach (var elem in sections.Select((sec, idx) => new { sec, itemTableStartOffset = itemBufferTableStartOffset[idx] }))
                 {
                     this._writeString(bw, elem.sec.Name); // セクション名 (バッファ長付き)
                     bw.Write(elem.itemTableStartOffset);  // アイテム テーブルの開始オフセット
+
+#if DEBUG
+                    Console.WriteLine("{0}={1}", elem.sec.Name, elem.itemTableStartOffset);
+#endif
                 }
 
                 bw.Flush();
@@ -122,8 +131,15 @@ namespace SimpleProps.Internal
             {
                 bw.Write((uint)items.Count); // アイテム数
 
+#if DEBUG
+                Console.WriteLine("== CREATE ITEM BUFFER TABLE ==");
+#endif
                 foreach (var elem in items.Select((item, idx) => new { item, itemBufferOffset = itemBufferStartOffset[idx] }))
                 {
+#if DEBUG
+                    Console.WriteLine("{0}={1}", elem.item.Name, elem.itemBufferOffset);
+#endif
+
                     this._writeString(bw, elem.item.Name); // アイテム名 (バッファ長付き)
                     bw.Write(elem.itemBufferOffset);       // アイテム バッファの開始オフセット
                 }
