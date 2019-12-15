@@ -118,18 +118,46 @@ namespace SimpleProps.Internal
             if (!completePropInfo)
                 return itemBufferTable;
 
-            
+            // 各アイテムの詳細情報を取得する
+            var itemBufferSectionStartOffset = st.Position; // アイテム バッファ テーブルの終了位置を開始位置とする
+            foreach (var elem in itemBufferTable)
+            {
+                var bufStartOffset = itemBufferSectionStartOffset + (long)elem.Value;
+                st.Seek(bufStartOffset, SeekOrigin.Begin);
+
+                // value データ含めて完全にロード
+                this.LoadItemBuffer(br, elem.Key, false);
+            }
 
             return itemBufferTable;
         }
 
-        public void LoadItemBuffer(BinaryReader br, PropItem item, bool skipValueData)
+        /// <summary>
+        /// アイテム バッファ本体を読み取ります。
+        /// </summary>
+        /// <param name="br"></param>
+        /// <param name="item"></param>
+        /// <param name="skipValueData"></param>
+        /// <returns></returns>
+        public PropItem LoadItemBuffer(BinaryReader br, PropItem item, bool skipValueData)
         {
-            var itemType = (PropType)br.ReadUInt16();
+            var propType = (PropType)br.ReadUInt16();
             var bufferMode = (PropItemBufferMode)br.ReadByte();
 
-            // TODO: アイテムの詳細をバイナリから読み取る実装
-            throw new NotImplementedException();
+            var result = new PropItem(item.Name, propType, null);
+            if (bufferMode == PropItemBufferMode.Null)
+                return result;
+
+            switch (propType)
+            {
+                case PropType.String:
+                    result.Value = this._readString(br);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            return result;
         }
     }
 }

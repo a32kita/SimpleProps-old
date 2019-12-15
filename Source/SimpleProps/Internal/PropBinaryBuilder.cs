@@ -133,7 +133,7 @@ namespace SimpleProps.Internal
             
             using (var bw = new BinaryWriter(outputStream, this._encoding, true))
             {
-                var currentPosition = outputStream.Position;
+                //var prePosition = (ulong)outputStream.Position;
                 bw.Write((ushort)item.Type);
                 bw.Write((byte)bufferMode);
 
@@ -159,6 +159,8 @@ namespace SimpleProps.Internal
                             throw new NotImplementedException();
                     }
                 }
+
+                bw.Flush(); // using が抜けたら Flush が走るので不要？
             }
         }
     }
