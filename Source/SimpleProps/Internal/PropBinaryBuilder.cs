@@ -59,6 +59,23 @@ namespace SimpleProps.Internal
             this._writeByteArray(bw, valueBuf.Select(b => (byte)(Byte.MaxValue - b)).ToArray());
         }
 
+        /// <summary>
+        /// <see cref="DateTime"/> 構造体を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="value"></param>
+        private void _writeDateTime(BinaryWriter bw, DateTime value)
+        {
+            // DateTime を構成する全要素は Int32
+            bw.Write(value.Year);
+            bw.Write(value.Month);
+            bw.Write(value.Day);
+            bw.Write(value.Hour);
+            bw.Write(value.Minute);
+            bw.Write(value.Second);
+            bw.Write(value.Millisecond);
+        }
+
 
         // 公開メソッド
 
@@ -137,9 +154,13 @@ namespace SimpleProps.Internal
                 bw.Write((ushort)item.Type);
                 bw.Write((byte)bufferMode);
 
-                if (bufferMode == PropItemBufferMode.Reference)
+                if (bufferMode == PropItemBufferMode.Null)
+                {
+                    // 何もしない
+                }
+                else if (bufferMode == PropItemBufferMode.Reference)
                     bw.Write(referenceOffset.Value);
-                else
+                else if (bufferMode == PropItemBufferMode.Buffered)
                 {
                     switch (item.Type)
                     {
@@ -148,6 +169,9 @@ namespace SimpleProps.Internal
                             break;
                         case PropType.InversedString:
                             this._writeInversedString(bw, (string)item.Value);
+                            break;
+                        case PropType.DateTime:
+                            this._writeDateTime(bw, (DateTime)item.Value);
                             break;
                         case PropType.Buffer:
                             this._writeByteArray(bw, (byte[])item.Value);
@@ -159,6 +183,8 @@ namespace SimpleProps.Internal
                             throw new NotImplementedException();
                     }
                 }
+                else
+                    throw new NotImplementedException();
 
                 bw.Flush(); // using が抜けたら Flush が走るので不要？
             }

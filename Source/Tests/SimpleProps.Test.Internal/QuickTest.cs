@@ -79,6 +79,7 @@ namespace SimpleProps.Test.Internal
                         new PropItem("PropItem01-001", PropType.String, "hello"),
                         new PropItem("PropItem01-002", PropType.String, "world!!"),
                         new PropItem("PropItem01-003", PropType.String, "こんにちは"),
+                        new PropItem("PropItem01-003", PropType.DateTime, DateTime.Parse("1970/01/01 00:00:00.000")),
                     }),
 
                     new PropSection("PropSection02", new PropItemCollection()

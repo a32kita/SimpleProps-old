@@ -62,6 +62,23 @@ namespace SimpleProps.Internal
             return this._encoding.GetString(valueBuf);
         }
 
+        /// <summary>
+        /// <see cref="DateTime"/> を読み取ります。
+        /// </summary>
+        /// <param name="br"></param>
+        /// <returns></returns>
+        private DateTime _readDateTime(BinaryReader br)
+        {
+            return new DateTime(
+                br.ReadInt32(), // Year
+                br.ReadInt32(), // Month
+                br.ReadInt32(), // Day
+                br.ReadInt32(), // Hour
+                br.ReadInt32(), // Minute
+                br.ReadInt32(), // Second
+                br.ReadInt32());// Millisecond
+        }
+
 
         // 公開メソッド
 
@@ -152,6 +169,12 @@ namespace SimpleProps.Internal
             {
                 case PropType.String:
                     result.Value = this._readString(br);
+                    break;
+                case PropType.InversedString:
+                    result.Value = this._readInversedString(br);
+                    break;
+                case PropType.DateTime:
+                    result.Value = this._readDateTime(br);
                     break;
                 default:
                     throw new NotImplementedException();

@@ -15,6 +15,8 @@ namespace SimpleProps
         String = 11,
 
         InversedString = 12,
+        
+        DateTime = 16,
 
         Int16Array = 31,
 
