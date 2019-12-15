@@ -87,6 +87,7 @@ namespace SimpleProps.Test.Internal
                         new PropItem("PropItem02-001", PropType.String, "りんご"),
                         new PropItem("PropItem02-002", PropType.String, "アップル"),
                         new PropItem("PropItem02-003", PropType.String, "ｴｲｯﾎﾟｩ"),
+                        new PropItem("PropItem02-004", PropType.Int64, Int64.MaxValue),
                     }),
 
                     new PropSection("PropSection03", new PropItemCollection()
@@ -94,7 +95,13 @@ namespace SimpleProps.Test.Internal
                         new PropItem("PropItem03-001", PropType.InversedString, "りんご"),
                         new PropItem("PropItem03-002", PropType.InversedString, "林檎"),
                         new PropItem("PropItem03-003", PropType.InversedString, "Apple"),
-                    })
+                        new PropItem("PropItem03-004", PropType.Guid, Guid.Parse("35B9E3E5-FDCC-4F47-8C64-35DE4D521103")),
+                    }),
+
+                    new PropSection("PropSection04", new PropItemCollection()
+                    {
+                        new PropItem("PropItem03-001", PropType.InversedString, "私（わたくし）はその人を常に先生と呼んでいた。だからここでもただ先生と書くだけで本名は打ち明けない。これは世間を憚（はば）かる遠慮というよりも、その方が私にとって自然だからである。私はその人の記憶を呼び起すごとに、すぐ「先生」といいたくなる。筆を執（と）っても心持は同じ事である。よそよそしい頭文字（かしらもじ）などはとても使う気にならない。"),
+                    }),
                 }));
             }
         }

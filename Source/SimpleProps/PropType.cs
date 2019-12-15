@@ -18,6 +18,8 @@ namespace SimpleProps
         
         DateTime = 16,
 
+        Guid = 17,
+
         Int16Array = 31,
 
         Int32Array = 32,

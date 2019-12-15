@@ -176,6 +176,15 @@ namespace SimpleProps.Internal
 
             switch (propType)
             {
+                case PropType.Int16:
+                    result.Value = br.ReadInt16();
+                    break;
+                case PropType.Int32:
+                    result.Value = br.ReadInt32();
+                    break;
+                case PropType.Int64:
+                    result.Value = br.ReadInt64();
+                    break;
                 case PropType.String:
                     result.Value = this._readString(br);
                     break;
@@ -184,6 +193,9 @@ namespace SimpleProps.Internal
                     break;
                 case PropType.DateTime:
                     result.Value = this._readDateTime(br);
+                    break;
+                case PropType.Guid:
+                    result.Value = new Guid(br.ReadBytes(Guid.Empty.ToByteArray().Length));
                     break;
                 default:
                     throw new NotImplementedException();

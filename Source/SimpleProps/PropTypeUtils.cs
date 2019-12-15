@@ -18,6 +18,8 @@ namespace SimpleProps
                 return PropType.String;
             if (obj is DateTime)
                 return PropType.DateTime;
+            if (obj is Guid)
+                return PropType.Guid;
             if (obj is Int16[])
                 return PropType.Int16Array;
             if (obj is Int32[])

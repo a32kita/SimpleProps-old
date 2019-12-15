@@ -180,6 +180,15 @@ namespace SimpleProps.Internal
                 {
                     switch (item.Type)
                     {
+                        case PropType.Int16:
+                            bw.Write((Int16)item.Value);
+                            break;
+                        case PropType.Int32:
+                            bw.Write((Int16)item.Value);
+                            break;
+                        case PropType.Int64:
+                            bw.Write((Int64)item.Value);
+                            break;
                         case PropType.String:
                             this._writeString(bw, (string)item.Value);
                             break;
@@ -189,11 +198,11 @@ namespace SimpleProps.Internal
                         case PropType.DateTime:
                             this._writeDateTime(bw, (DateTime)item.Value);
                             break;
+                        case PropType.Guid:
+                            bw.Write(((Guid)item.Value).ToByteArray());
+                            break;
                         case PropType.Buffer:
                             this._writeByteArray(bw, (byte[])item.Value);
-                            break;
-                        case PropType.Int16:
-                            bw.Write((Int16)item.Value);
                             break;
                         default:
                             throw new NotImplementedException();
