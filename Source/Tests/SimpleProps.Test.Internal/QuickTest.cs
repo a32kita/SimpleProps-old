@@ -69,7 +69,7 @@ namespace SimpleProps.Test.Internal
             // TODO: テスト ロジックをここに追加してください
             //
 
-            using (var fs = File.OpenWrite(".\\Test001-TestMethod1.txt"))
+            using (var fs = File.OpenWrite(".\\QuickTest-Test001.txt"))
             using (var pw = new PropWriter(fs))
             {
                 pw.Write(new Props(new PropSectionCollection()
@@ -112,7 +112,83 @@ namespace SimpleProps.Test.Internal
         [TestMethod]
         public void Test002()
         {
-            using (var fs = File.OpenRead(".\\Test001-TestMethod1.txt"))
+            using (var fs = File.OpenRead(".\\QuickTest-Test001.txt"))
+            using (var pr = new PropReader(fs))
+            {
+                var props = pr.ReadAllProps();
+                foreach (var sect in props.Sections)
+                {
+                    this.TestContext.WriteLine("[{0}]", sect.Name);
+                    foreach (var propItem in sect.Items)
+                    {
+                        this.TestContext.WriteLine("{0}={1}:{2}", propItem.Name, propItem.Type, propItem.Value);
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Test003()
+        {
+            var rotateCount = 0;
+            var rotateWord = new Func<string>(() =>
+            {
+                var wordList = new string[]
+                {
+                    "トヨタ自動車",
+                    "日産自動車",
+                    "本田技研",
+                    "スバル自動車",
+
+                    "東急電鉄",
+                    "東武鉄道",
+                    "京成電鉄",
+                    "京浜急行電鉄",
+                    "相模鉄道",
+                    "小田急電鉄",
+                    "京王電鉄",
+                    "西武鉄道",
+
+                    "日本テレビ",
+                    "フジテレビ",
+                    "TBS",
+                    "テレビ朝日",
+                    "テレビ東京",
+                };
+                rotateCount = (rotateCount + 1) % wordList.Length;
+
+                return wordList[rotateCount];
+            });
+
+            var props = new Props();
+            for (var i = 0; i < 100; i++)
+            {
+                var sect = new PropSection(String.Format("DEBUG_SECT_{0:000}", i));
+                for (var j = 0; j < 500; j++)
+                {
+                    var item = new PropItem(
+                        String.Format("DEBUG_{0:000}-{1:0000}", i, j),
+                        PropType.String,
+                        rotateWord());
+                    sect.Items.Add(item);
+                }
+                props.Sections.Add(sect);
+            }
+
+            using (var fs = File.OpenWrite(".\\QuickTest-Test003.txt"))
+            using (var pw = new PropWriter(fs))
+            {
+                pw.Write(props);
+            }
+        }
+
+        /// <summary>
+        /// <see cref="Test003"/> で書き出したファイルからデータを読み取ります。
+        /// </summary>
+        [TestMethod]
+        public void Test004()
+        {
+            using (var fs = File.OpenRead(".\\QuickTest-Test003.txt"))
             using (var pr = new PropReader(fs))
             {
                 var props = pr.ReadAllProps();

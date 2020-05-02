@@ -146,7 +146,7 @@ namespace SimpleProps
         public void Dispose()
         {
             if (!this._leaveOpen)
-                this._stream.Close();
+                this._stream.Dispose();
             this._isDisposed = true;
         }
     }
