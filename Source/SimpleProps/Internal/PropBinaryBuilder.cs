@@ -184,7 +184,7 @@ namespace SimpleProps.Internal
                             bw.Write((Int16)item.Value);
                             break;
                         case PropType.Int32:
-                            bw.Write((Int16)item.Value);
+                            bw.Write((Int32)item.Value);
                             break;
                         case PropType.Int64:
                             bw.Write((Int64)item.Value);
