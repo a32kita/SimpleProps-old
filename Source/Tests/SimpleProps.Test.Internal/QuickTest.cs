@@ -87,6 +87,8 @@ namespace SimpleProps.Test.Internal
                         new PropItem("PropItem02-001", PropType.String, "りんご"),
                         new PropItem("PropItem02-002", PropType.String, "アップル"),
                         new PropItem("PropItem02-003", PropType.String, "ｴｲｯﾎﾟｩ"),
+                        new PropItem("PropItem02-004", PropType.Int16, Int16.MaxValue),
+                        new PropItem("PropItem02-004", PropType.Int32, Int32.MaxValue),
                         new PropItem("PropItem02-004", PropType.Int64, Int64.MaxValue),
                     }),
 
