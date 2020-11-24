@@ -102,7 +102,13 @@ namespace SimpleProps.Test.Internal
 
                     new PropSection("PropSection04", new PropItemCollection()
                     {
-                        new PropItem("PropItem03-001", PropType.InversedString, "私（わたくし）はその人を常に先生と呼んでいた。だからここでもただ先生と書くだけで本名は打ち明けない。これは世間を憚（はば）かる遠慮というよりも、その方が私にとって自然だからである。私はその人の記憶を呼び起すごとに、すぐ「先生」といいたくなる。筆を執（と）っても心持は同じ事である。よそよそしい頭文字（かしらもじ）などはとても使う気にならない。"),
+                        new PropItem("PropItem04-001", PropType.InversedString, "私（わたくし）はその人を常に先生と呼んでいた。だからここでもただ先生と書くだけで本名は打ち明けない。これは世間を憚（はば）かる遠慮というよりも、その方が私にとって自然だからである。私はその人の記憶を呼び起すごとに、すぐ「先生」といいたくなる。筆を執（と）っても心持は同じ事である。よそよそしい頭文字（かしらもじ）などはとても使う気にならない。"),
+                    }),
+
+                    new PropSection("PropSection05", new PropItemCollection()
+                    {
+                        new PropItem("PropItem05-001", PropType.Int16Array, new short[] { 200, 403, 404 }),
+                        new PropItem("PropItem05-002", PropType.DoubleArray, new double[] { 2.21, 3.14 }),
                     }),
                 }));
             }

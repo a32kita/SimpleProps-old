@@ -60,6 +60,34 @@ namespace SimpleProps.Internal
         }
 
         /// <summary>
+        /// uint 型の配列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="values"></param>
+        private void _writeInt16Array(BinaryWriter bw, Int16[] values)
+        {
+            bw.Write((ulong)values.Length);
+            foreach (var v in values)
+            {
+                bw.Write(v);
+            }
+        }
+
+        /// <summary>
+        /// double 型の配列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="values"></param>
+        private void _writeDoubleArray(BinaryWriter bw, Double[] values)
+        {
+            bw.Write((ulong)values.Length);
+            foreach (var v in values)
+            {
+                bw.Write(v);
+            }
+        }
+
+        /// <summary>
         /// <see cref="DateTime"/> 構造体を書き込みます。
         /// </summary>
         /// <param name="bw"></param>
@@ -189,6 +217,9 @@ namespace SimpleProps.Internal
                         case PropType.Int64:
                             bw.Write((Int64)item.Value);
                             break;
+                        case PropType.Double:
+                            bw.Write((Double)item.Value);
+                            break;
                         case PropType.String:
                             this._writeString(bw, (string)item.Value);
                             break;
@@ -203,6 +234,12 @@ namespace SimpleProps.Internal
                             break;
                         case PropType.Buffer:
                             this._writeByteArray(bw, (byte[])item.Value);
+                            break;
+                        case PropType.Int16Array:
+                            this._writeInt16Array(bw, (Int16[])item.Value);
+                            break;
+                        case PropType.DoubleArray:
+                            this._writeDoubleArray(bw, (Double[])item.Value);
                             break;
                         default:
                             throw new NotImplementedException();

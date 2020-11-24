@@ -79,6 +79,24 @@ namespace SimpleProps.Internal
                 br.ReadInt32());// Millisecond
         }
 
+        private Int16[] _readInt16Array(BinaryReader br)
+        {
+            var length = (int)br.ReadUInt64();
+            var values = new short[length];
+            for (var i = 0; i < length; i++)
+                values[i] = br.ReadInt16();
+            return values;
+        }
+
+        private Double[] _readDoubleArray(BinaryReader br)
+        {
+            var length = (int)br.ReadUInt64();
+            var values = new double[length];
+            for (var i = 0; i < length; i++)
+                values[i] = br.ReadDouble();
+            return values;
+        }
+
 
         // 公開メソッド
 
@@ -185,6 +203,9 @@ namespace SimpleProps.Internal
                 case PropType.Int64:
                     result.Value = br.ReadInt64();
                     break;
+                case PropType.Double:
+                    result.Value = br.ReadDouble();
+                    break;
                 case PropType.String:
                     result.Value = this._readString(br);
                     break;
@@ -196,6 +217,12 @@ namespace SimpleProps.Internal
                     break;
                 case PropType.Guid:
                     result.Value = new Guid(br.ReadBytes(Guid.Empty.ToByteArray().Length));
+                    break;
+                case PropType.Int16Array:
+                    result.Value = this._readInt16Array(br);
+                    break;
+                case PropType.DoubleArray:
+                    result.Value = this._readDoubleArray(br);
                     break;
                 default:
                     throw new NotImplementedException();

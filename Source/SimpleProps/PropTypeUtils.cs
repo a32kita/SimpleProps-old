@@ -14,6 +14,8 @@ namespace SimpleProps
                 return PropType.Int32;
             if (obj is Int64)
                 return PropType.Int64;
+            if (obj is Double)
+                return PropType.Double;
             if (obj is String)
                 return PropType.String;
             if (obj is DateTime)
@@ -26,6 +28,8 @@ namespace SimpleProps
                 return PropType.Int32Array;
             if (obj is Int64[])
                 return PropType.Int64Array;
+            if (obj is Double[])
+                return PropType.DoubleArray;
             if (obj is Byte[])
                 return PropType.Buffer;
 

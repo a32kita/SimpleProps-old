@@ -12,6 +12,8 @@ namespace SimpleProps
 
         Int64 = 3,
 
+        Double = 4,
+
         String = 11,
 
         InversedString = 12,
@@ -25,6 +27,8 @@ namespace SimpleProps
         Int32Array = 32,
 
         Int64Array = 33,
+
+        DoubleArray = 34,
 
         Buffer = 51,
     }
