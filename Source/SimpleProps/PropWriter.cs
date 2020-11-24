@@ -5,6 +5,12 @@ using System.Text;
 
 using SimpleProps.Internal;
 
+#if net35
+// net35 でも leaveOpen を利用する
+using BinaryReader = SimpleProps.Internal.ReaderWriterWrappers.BinaryReaderEx;
+using BinaryWriter = SimpleProps.Internal.ReaderWriterWrappers.BinaryWriterEx;
+#endif
+
 namespace SimpleProps
 {
     public class PropWriter : IDisposable

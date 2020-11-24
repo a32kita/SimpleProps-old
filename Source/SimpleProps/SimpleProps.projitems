@@ -15,7 +15,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\NullStream.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\PropBinaryBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\PropItemBufferMode.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\UnclosableStream.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\ReaderWriterWrappers\BinaryReaderEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\ReaderWriterWrappers\BinaryWriterEx.cs" />
+    <None Include="$(MSBuildThisFileDirectory)Internal\UnclosableStream.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropItemCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropReader.cs" />

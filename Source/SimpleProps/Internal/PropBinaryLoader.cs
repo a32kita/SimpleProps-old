@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+#if net35
+// net35 でも leaveOpen を利用する
+using BinaryReader = SimpleProps.Internal.ReaderWriterWrappers.BinaryReaderEx;
+using BinaryWriter = SimpleProps.Internal.ReaderWriterWrappers.BinaryWriterEx;
+#endif
+
 namespace SimpleProps.Internal
 {
     internal class PropBinaryLoader
@@ -217,6 +223,9 @@ namespace SimpleProps.Internal
                     break;
                 case PropType.Guid:
                     result.Value = new Guid(br.ReadBytes(Guid.Empty.ToByteArray().Length));
+                    break;
+                case PropType.Buffer:
+                    result.Value = this._readByteArray(br);
                     break;
                 case PropType.Int16Array:
                     result.Value = this._readInt16Array(br);

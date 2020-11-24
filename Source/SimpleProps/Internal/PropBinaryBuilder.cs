@@ -4,6 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+#if net35
+// net35 でも leaveOpen を利用する
+using BinaryReader = SimpleProps.Internal.ReaderWriterWrappers.BinaryReaderEx;
+using BinaryWriter = SimpleProps.Internal.ReaderWriterWrappers.BinaryWriterEx;
+#endif
+
 namespace SimpleProps.Internal
 {
     internal class PropBinaryBuilder
@@ -191,7 +197,7 @@ namespace SimpleProps.Internal
             if (bufferMode == PropItemBufferMode.Null && !item.IsNull ||
                 bufferMode != PropItemBufferMode.Null && item.IsNull)
                 throw new InvalidOperationException();
-            
+
             using (var bw = new BinaryWriter(outputStream, this._encoding, true))
             {
                 //var prePosition = (ulong)outputStream.Position;

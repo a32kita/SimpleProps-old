@@ -107,8 +107,10 @@ namespace SimpleProps.Test.Internal
 
                     new PropSection("PropSection05", new PropItemCollection()
                     {
-                        new PropItem("PropItem05-001", PropType.Int16Array, new short[] { 200, 403, 404 }),
-                        new PropItem("PropItem05-002", PropType.DoubleArray, new double[] { 2.21, 3.14 }),
+                        new PropItem("PropItem05-001", PropType.Buffer, new byte[] { 110, 114, 117 }),
+                        new PropItem("PropItem05-002", PropType.Int16Array, new short[] { 200, 403, 404 }),
+                        new PropItem("PropItem05-003", PropType.DoubleArray, new double[] { 2.21, 3.14 }),
+                        new PropItem("PropItem05-004", PropType.DateTime, new DateTime(2020, 11, 24, 17, 57, 13, 334)),
                     }),
                 }));
             }
