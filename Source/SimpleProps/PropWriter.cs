@@ -11,6 +11,11 @@ using BinaryReader = SimpleProps.Internal.ReaderWriterWrappers.BinaryReaderEx;
 using BinaryWriter = SimpleProps.Internal.ReaderWriterWrappers.BinaryWriterEx;
 #endif
 
+#if netstd
+using SimpleProps.BclWrappers.System;
+using SimpleProps.BclWrappers.System.Text;
+#endif
+
 namespace SimpleProps
 {
     public class PropWriter : IDisposable
