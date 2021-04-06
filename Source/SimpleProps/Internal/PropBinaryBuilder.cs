@@ -71,11 +71,39 @@ namespace SimpleProps.Internal
         }
 
         /// <summary>
-        /// uint 型の配列を書き込みます。
+        /// short 型の配列を書き込みます。
         /// </summary>
         /// <param name="bw"></param>
         /// <param name="values"></param>
         private void _writeInt16Array(BinaryWriter bw, Int16[] values)
+        {
+            bw.Write((ulong)values.Length);
+            foreach (var v in values)
+            {
+                bw.Write(v);
+            }
+        }
+
+        /// <summary>
+        /// int 型の配列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="values"></param>
+        private void _writeInt32Array(BinaryWriter bw, Int32[] values)
+        {
+            bw.Write((ulong)values.Length);
+            foreach (var v in values)
+            {
+                bw.Write(v);
+            }
+        }
+
+        /// <summary>
+        /// long 型の配列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="values"></param>
+        private void _writeInt64Array(BinaryWriter bw, Int64[] values)
         {
             bw.Write((ulong)values.Length);
             foreach (var v in values)
@@ -95,6 +123,20 @@ namespace SimpleProps.Internal
             foreach (var v in values)
             {
                 bw.Write(v);
+            }
+        }
+
+        /// <summary>
+        /// string 型の配列を書き込みます。
+        /// </summary>
+        /// <param name="bw"></param>
+        /// <param name="values"></param>
+        private void _writeStringArray(BinaryWriter bw, String[] values)
+        {
+            bw.Write((ulong)values.Length);
+            foreach (var v in values)
+            {
+                this._writeString(bw, v);
             }
         }
 
@@ -243,14 +285,23 @@ namespace SimpleProps.Internal
                         case PropType.Guid:
                             bw.Write(((Guid)item.Value).ToByteArray());
                             break;
-                        case PropType.Buffer:
-                            this._writeByteArray(bw, (byte[])item.Value);
-                            break;
                         case PropType.Int16Array:
                             this._writeInt16Array(bw, (Int16[])item.Value);
                             break;
+                        case PropType.Int32Array:
+                            this._writeInt32Array(bw, (Int32[])item.Value);
+                            break;
+                        case PropType.Int64Array:
+                            this._writeInt64Array(bw, (Int64[])item.Value);
+                            break;
                         case PropType.DoubleArray:
                             this._writeDoubleArray(bw, (Double[])item.Value);
+                            break;
+                        case PropType.StringArray:
+                            this._writeStringArray(bw, (String[])item.Value);
+                            break;
+                        case PropType.Buffer:
+                            this._writeByteArray(bw, (byte[])item.Value);
                             break;
                         default:
                             throw new NotImplementedException();

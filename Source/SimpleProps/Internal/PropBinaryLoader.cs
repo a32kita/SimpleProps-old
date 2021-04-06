@@ -99,6 +99,33 @@ namespace SimpleProps.Internal
             return values;
         }
 
+        private Int32[] _readInt32Array(BinaryReader br)
+        {
+            var length = (int)br.ReadUInt64();
+            var values = new int[length];
+            for (var i = 0; i < length; i++)
+                values[i] = br.ReadInt32();
+            return values;
+        }
+
+        private Int64[] _readInt64Array(BinaryReader br)
+        {
+            var length = (int)br.ReadUInt64();
+            var values = new long[length];
+            for (var i = 0; i < length; i++)
+                values[i] = br.ReadInt64();
+            return values;
+        }
+
+        private String[] _readStringArray(BinaryReader br)
+        {
+            var length = (int)br.ReadUInt64();
+            var values = new string[length];
+            for (var i = 0; i < length; i++)
+                values[i] = this._readString(br);
+            return values;
+        }
+
         private Double[] _readDoubleArray(BinaryReader br)
         {
             var length = (int)br.ReadUInt64();
@@ -229,14 +256,23 @@ namespace SimpleProps.Internal
                 case PropType.Guid:
                     result.Value = new Guid(br.ReadBytes(Guid.Empty.ToByteArray().Length));
                     break;
-                case PropType.Buffer:
-                    result.Value = this._readByteArray(br);
-                    break;
                 case PropType.Int16Array:
                     result.Value = this._readInt16Array(br);
                     break;
+                case PropType.Int32Array:
+                    result.Value = this._readInt32Array(br);
+                    break;
+                case PropType.Int64Array:
+                    result.Value = this._readInt64Array(br);
+                    break;
                 case PropType.DoubleArray:
                     result.Value = this._readDoubleArray(br);
+                    break;
+                case PropType.StringArray:
+                    result.Value = this._readStringArray(br);
+                    break;
+                case PropType.Buffer:
+                    result.Value = this._readByteArray(br);
                     break;
                 default:
                     throw new NotImplementedException();

@@ -30,6 +30,8 @@ namespace SimpleProps
 
         DoubleArray = 34,
 
+        StringArray = 41,
+
         Buffer = 51,
     }
 }

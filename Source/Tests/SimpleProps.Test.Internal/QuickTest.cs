@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SimpleProps.Test.Internal
@@ -109,8 +110,11 @@ namespace SimpleProps.Test.Internal
                     {
                         new PropItem("PropItem05-001", PropType.Buffer, new byte[] { 110, 114, 117 }),
                         new PropItem("PropItem05-002", PropType.Int16Array, new short[] { 200, 403, 404 }),
-                        new PropItem("PropItem05-003", PropType.DoubleArray, new double[] { 2.21, 3.14 }),
-                        new PropItem("PropItem05-004", PropType.DateTime, new DateTime(2020, 11, 24, 17, 57, 13, 334)),
+                        new PropItem("PropItem05-003", PropType.Int32Array, new int[] { 202103, 202104, 202105 }),
+                        new PropItem("PropItem05-004", PropType.Int64Array, new long[] { 20210304103055, 20210430201545, 20210505112000 }),
+                        new PropItem("PropItem05-005", PropType.DoubleArray, new double[] { 2.21, 3.14 }),
+                        new PropItem("PropItem05-006", PropType.StringArray, new string[] { "千葉", "滋賀", "佐賀" }),
+                        new PropItem("PropItem05-007", PropType.DateTime, new DateTime(2020, 11, 24, 17, 57, 13, 334)),
                     }),
                 }));
             }
@@ -131,7 +135,15 @@ namespace SimpleProps.Test.Internal
                     this.TestContext.WriteLine("[{0}]", sect.Name);
                     foreach (var propItem in sect.Items)
                     {
-                        this.TestContext.WriteLine("{0}={1}:{2}", propItem.Name, propItem.Type, propItem.Value);
+                        var itemValue = "Raw= " + propItem.Value;
+                        if (propItem.Value != null && propItem.Type.ToString().Contains("Array"))
+                        {
+                            itemValue = "Array(" + ((Array)propItem.Value).Length + ")= ";
+                            foreach (var e in ((Array)propItem.Value).OfType<object>())
+                                itemValue += ", " + e.ToString();
+                        }
+
+                        this.TestContext.WriteLine("{0}={1}:{2}", propItem.Name, propItem.Type, itemValue);
                     }
                 }
             }

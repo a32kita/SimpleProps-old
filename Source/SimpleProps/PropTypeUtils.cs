@@ -30,6 +30,8 @@ namespace SimpleProps
                 return PropType.Int64Array;
             if (obj is Double[])
                 return PropType.DoubleArray;
+            if (obj is String[])
+                return PropType.StringArray;
             if (obj is Byte[])
                 return PropType.Buffer;
 
